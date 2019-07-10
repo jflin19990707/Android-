@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.exp1">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Exp3"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Main3Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Exp1.MainActivity"
+            android:label="Exp1" />
+        <activity
+            android:name=".Exp2.Main2Activity"
+            android:label="Exp2" />
+        <activity android:name=".fragment.ViewPagerWithTabActivity">
+
+        </activity>
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+    </application>
+
+</manifest>
