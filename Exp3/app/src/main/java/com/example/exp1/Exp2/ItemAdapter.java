@@ -11,7 +11,7 @@ import com.example.exp1.R;
 
 import java.util.List;
 
-class ItemAdapter extends RecyclerView.Adapter {
+public class ItemAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override

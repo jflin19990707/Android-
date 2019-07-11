@@ -14,11 +14,13 @@ import android.widget.SeekBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.exp1.fragment.ViewPagerWithTabActivity;
 
 public class Main3Activity extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
     private Button malpha_scale_btn;
     private Button malpha_scale_btn2;
     private SeekBar msb;
@@ -30,6 +32,7 @@ public class Main3Activity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_01);
 
         mImage = findViewById(R.id.testImage);
         malpha_scale_btn = findViewById(R.id.alpah_scale_btn);

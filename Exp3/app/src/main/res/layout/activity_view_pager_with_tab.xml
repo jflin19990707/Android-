@@ -3,12 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#70d3ec">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:text="抖音热搜"
+            android:textColor="#efefef"
+            android:textSize="40sp"
+            />
+    </RelativeLayout>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        app:tabTextColor="#000000"
+        app:tabIndicatorColor="#f6c414"
+        app:tabRippleColor="#414141"
+        app:tabSelectedTextColor="#f42333"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
