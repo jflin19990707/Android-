@@ -35,6 +35,7 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class IJKPlayerActivity extends Activity implements View.OnClickListener {
+    private static final int MAX_BRIGHTNESS = 255;
     VideoPlayerIJK ijkPlayer = null;
     Button btnSetting;
     Button btnStop;
@@ -48,6 +49,7 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
     RelativeLayout rlPlayer;
     ImageView ivVolume;
     VerticalSeekBar vsbVolume;
+    VerticalSeekBar vsbBright;
     IMediaPlayer mmediaPlayer;
     int mVideoWidth = 0;
     int mVideoHeight = 0;
@@ -192,7 +194,7 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
             public void onCompletion(IMediaPlayer mp) {
                 seekBar.setProgress(100);
                 btnPlay.setText("播放");
-                btnStop.setText("播放");
+                btnStop.setText("重新播放");
             }
 
             @Override
@@ -230,6 +232,7 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
 
         });
         vsbVolume = findViewById(R.id.vsb_volume);
+        vsbBright = findViewById(R.id.vsb_bright);
         vsbVolume.setOnClickListener(this);
         vsbVolume.setProgress(1);
         vsbVolume.setVisibility(View.INVISIBLE);
@@ -237,7 +240,40 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
         vsbVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(progress==0)
+                    ivVolume.setImageDrawable(getDrawable(R.drawable.icon_silence));
+                else{
+                    ivVolume.setImageDrawable(getDrawable((R.drawable.icon_volume)));
+                }
                 mmediaPlayer.setVolume(progress/100f,progress/100f);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        final WindowManager.LayoutParams mBright = getWindow().getAttributes();
+        mBright.screenBrightness=(float)50/255;
+        getWindow().setAttributes(mBright);
+        vsbBright.setOnClickListener(this);
+        vsbBright.setProgress(1);
+        vsbBright.setMax(MAX_BRIGHTNESS);
+        vsbBright.setProgress(MAX_BRIGHTNESS);
+        vsbBright.setVisibility(View.VISIBLE);
+        mmediaPlayer.setVolume(1/100f,1/100f);
+        vsbBright.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(progress<1)
+                    progress = 1;
+                mBright.screenBrightness=(float)progress/255;
+                getWindow().setAttributes(mBright);
             }
 
             @Override
@@ -293,14 +329,18 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
                 break;
             case R.id.ijkPlayer:
                 if (menu_visible == false) {
+                    vsbBright.setVisibility(View.VISIBLE);
                     rl_bottom.setVisibility(View.VISIBLE);
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_bottom);
                     rl_bottom.startAnimation(animation);
+                    vsbBright.startAnimation(animation);
                     menu_visible = true;
                 } else {
+                    vsbBright.setVisibility(View.INVISIBLE);
                     rl_bottom.setVisibility(View.INVISIBLE);
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_bottom);
                     rl_bottom.startAnimation(animation);
+                    vsbBright.startAnimation(animation);
                     menu_visible = false;
                 }
 
@@ -350,6 +390,7 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
     }
 
     private void portrait() {
+        boolean isPlaying = ijkPlayer.isPlaying();
         ijkPlayer.pause();
         isPortrait = true;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -368,10 +409,19 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
         layoutParams.width = (int) width;
         rlPlayer.setLayoutParams(layoutParams);
         btnSetting.setText(getResources().getString(R.string.fullScreek));
-        ijkPlayer.start();
+        if(isPlaying) {
+            btnPlay.setText(getResources().getString(R.string.pause));
+            ijkPlayer.start();
+        }
+        else{
+            btnPlay.setText(getResources().getString(R.string.media_play));
+            ijkPlayer.pause();
+
+        }
     }
 
     private void lanscape() {
+        boolean isPlaying = ijkPlayer.isPlaying();
         ijkPlayer.pause();
         isPortrait = false;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -388,6 +438,14 @@ public class IJKPlayerActivity extends Activity implements View.OnClickListener 
         layoutParams.width = (int) RelativeLayout.LayoutParams.MATCH_PARENT;
         rlPlayer.setLayoutParams(layoutParams);
         btnSetting.setText(getResources().getString(R.string.smallScreen));
-        ijkPlayer.start();
+        if(isPlaying) {
+            btnPlay.setText(getResources().getString(R.string.pause));
+            ijkPlayer.start();
+        }
+        else{
+            btnPlay.setText(getResources().getString(R.string.media_play));
+            ijkPlayer.pause();
+
+        }
     }
 }
