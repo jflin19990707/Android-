@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/itemNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="976条评论"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="11dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/review_rv"
+        android:layout_below="@+id/itemNum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/reviewbar"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        >
+    <EditText
+        android:id="@+id/editReview"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:textColorHint="#8a8b91"
+        android:gravity="center_vertical"
+        android:textColor="#000000"
+        android:paddingStart="20dp"
+        android:hint="留下你的精彩评论吧"
+        android:background="@null"
+        android:textSize="15dp"
+        />
+
+        <ImageView
+            android:id="@+id/post"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_post"/>
+    </LinearLayout>
+</RelativeLayout>
